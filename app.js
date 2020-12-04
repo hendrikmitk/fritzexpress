@@ -9,6 +9,9 @@ app.use(express.json());
 const offers = require("./routes/offers");
 app.use("/fritzexpress/offers", offers);
 
+const tweet = require("./routes/tweet");
+app.use("/fritzexpress/tweet", tweet);
+
 /////////////////
 // L I S T E N //
 /////////////////
