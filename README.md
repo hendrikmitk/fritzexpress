@@ -29,6 +29,7 @@ I want fritzexpress to automatically check the offers every week and store them 
 -   **[axios](https://www.npmjs.com/package/hooman)** - Promise based HTTP client for the browser and Node.js
 -   **[Cheerio](https://www.npmjs.com/package/cheerio)** - Cheerio makes it easy to select, edit, and view DOM elements
 -   **[Express](https://www.npmjs.com/package/express)** - Fast, unopinionated, minimalist web framework for Node.js
+-   **[Twitter Lite](https://www.npmjs.com/package/twitter-lite)** - Tiny, full-featured client / server library for the Twitter API
 
 ## Changelog
 
