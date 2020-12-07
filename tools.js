@@ -7,6 +7,19 @@ const cheerio = require("cheerio");
 
 const url = "https://www.durstexpress.de/";
 
+const areas = [
+	{ name: "hamburg" },
+	{ name: "hannover" },
+	{ name: "bochum" },
+	{ name: "wiesbaden" },
+	{ name: "berlin2" },
+	{ name: "leipzig" },
+	{ name: "dresden" },
+	{ name: "nuernberg" },
+	{ name: "augsburg" },
+	{ name: "muenchen" },
+];
+
 /////////////
 // H E L P //
 /////////////
