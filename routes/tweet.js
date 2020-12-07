@@ -1,8 +1,8 @@
 const tools = require("../tools");
-require("dotenv").config();
-const Twitter = require("twitter-lite");
 const express = require("express");
 const router = express.Router();
+const Twitter = require("twitter-lite");
+require("dotenv").config();
 
 /////////////
 // D A T A //
@@ -29,9 +29,9 @@ const sendTweet = async (content) => {
 // M A I N //
 /////////////
 
-router.get("/", (req, res) => {
+router.get("/:area", (req, res) => {
 	tools
-		.getOffers("hamburg")
+		.getOffers(req.params.area)
 		.then((results) => {
 			const today = new Date();
 			const date = today.getDate() + "." + (today.getMonth() + 1) + "." + today.getFullYear();

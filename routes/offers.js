@@ -6,9 +6,9 @@ const router = express.Router();
 // M A I N //
 /////////////
 
-router.get("/", (req, res) => {
+router.get("/:area", (req, res) => {
 	tools
-		.getOffers("hamburg")
+		.getOffers(req.params.area)
 		.then((results) => {
 			res.status(200).send(results);
 		})
