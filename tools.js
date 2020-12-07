@@ -62,4 +62,9 @@ const getOffers = async (area) => {
 	}
 };
 
-module.exports = { areas, getOffers };
+const validateArea = async (area) => {
+	const isAreaValid = areas.some((i) => i.name.includes(area));
+	return isAreaValid;
+};
+
+module.exports = { getOffers, validateArea };
