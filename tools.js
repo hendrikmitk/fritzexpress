@@ -62,4 +62,4 @@ const getOffers = async (area) => {
 	}
 };
 
-module.exports = { getOffers };
+module.exports = { areas, getOffers };
