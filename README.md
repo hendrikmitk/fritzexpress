@@ -16,7 +16,7 @@ I want fritzexpress to automatically check the offers every week and store them 
 
 -   [x] provide `/offers` endpoint to expose parsed data
 -   [x] provide `/tweet` endpoint to send out a Tweet
--   [ ] create request params for all business area cities
+-   [x] create request params for all business area cities
 -   [ ] add custom `fritzKolaOnSale` property (boolean)
 -   [ ] solve JavaScript challenge and bypass DDoS protection
 
@@ -40,3 +40,7 @@ I want fritzexpress to automatically check the offers every week and store them 
 ### 2020-12-04
 
 -   provide `/tweet` endpoint to send out a Tweet
+
+### 2020-12-07
+
+-   request param handling for business area cities
