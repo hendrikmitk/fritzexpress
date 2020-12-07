@@ -1,6 +1,8 @@
+const tools = require("../tools");
 require("dotenv").config();
 const Twitter = require("twitter-lite");
-const tools = require("../tools");
+const express = require("express");
+const router = express.Router();
 
 /////////////
 // D A T A //
@@ -19,15 +21,15 @@ const client = new Twitter({
 // H E L P //
 /////////////
 
-async function sendTweet(content) {
+const sendTweet = async (content) => {
 	await client.post("statuses/update", { status: content }).catch((err) => console.log(err));
-}
+};
 
 /////////////
 // M A I N //
 /////////////
 
-module.exports = async (req, res) => {
+router.get("/", (req, res) => {
 	tools
 		.getOffers("hamburg")
 		.then((results) => {
@@ -35,10 +37,12 @@ module.exports = async (req, res) => {
 			const date = today.getDate() + "." + (today.getMonth() + 1) + "." + today.getFullYear();
 			const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 			const messageText = `Sonderangebote bei durstexpress.de am ${date} um ${time}:\n\n${results[0].itemName}, ${results[0].offer.offerPriceDisplay} statt ${results[0].regular.regularPriceDisplay} (${results[0].discountDisplay})\n${results[1].itemName}, ${results[1].offer.offerPriceDisplay} statt ${results[1].regular.regularPriceDisplay} (${results[1].discountDisplay})\n${results[2].itemName}, ${results[2].offer.offerPriceDisplay} statt ${results[2].regular.regularPriceDisplay} (${results[2].discountDisplay})\n\nProst!`;
-			res.send(messageText);
+			res.status(200).send(messageText);
 			sendTweet(messageText);
 		})
 		.catch((err) => {
 			console.log(err);
 		});
-};
+});
+
+module.exports = router;

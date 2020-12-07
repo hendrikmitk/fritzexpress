@@ -1,16 +1,20 @@
 const tools = require("../tools");
+const express = require("express");
+const router = express.Router();
 
 /////////////
 // M A I N //
 /////////////
 
-module.exports = async (req, res) => {
+router.get("/", (req, res) => {
 	tools
 		.getOffers("hamburg")
 		.then((results) => {
-			res.send(results);
+			res.status(200).send(results);
 		})
 		.catch((err) => {
 			console.log(err);
 		});
-};
+});
+
+module.exports = router;
