@@ -1,11 +1,11 @@
 {
   "name": "fritzexpress",
   "version": "1.0.0",
-  "description": "",
-  "main": "app.js",
+  "description": "Service checking special offers on durstexpress.de 🧃",
+  "main": "src/app.js",
   "scripts": {
-    "start": "node app.js",
-    "dev": "nodemon app.js"
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js"
   },
   "keywords": [],
   "author": "",

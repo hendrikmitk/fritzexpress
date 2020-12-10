@@ -68,4 +68,14 @@ const validateArea = async (area) => {
 	}
 };
 
-module.exports = { areas, getOffers, validateArea };
+const handleNetworkError = (error) => {
+	if (error.response) {
+		console.error(error.response);
+	} else if (error.request) {
+		console.error(error.request);
+	} else {
+		console.error("Error", error.message);
+	}
+};
+
+module.exports = { areas, getOffers, validateArea, handleNetworkError };

@@ -1,6 +1,6 @@
-const tools = require("../tools");
+const tools = require("../src/tools");
 const express = require("express");
-const router = express.Router();
+const app = express();
 const Twitter = require("twitter-lite");
 require("dotenv").config();
 
@@ -25,11 +25,30 @@ const sendTweet = async (content) => {
 	await client.post("statuses/update", { status: content }).catch((err) => console.log(err));
 };
 
-/////////////
-// M A I N //
-/////////////
+/////////////////
+// R O U T E S //
+/////////////////
 
-router.get("/:area", (req, res) => {
+app.get("/fritzexpress/:area/offers", (req, res) => {
+	tools
+		.validateArea(req.params.area)
+		.then((validatedArea) => {
+			if (!validatedArea) {
+				res.status(404).send(JSON.stringify(tools.areas));
+			} else {
+				return validatedArea;
+			}
+		})
+		.then((validArea) => tools.getOffers(validArea))
+		.then((results) => {
+			res.status(200).send(results);
+		})
+		.catch((err) => {
+			tools.handleNetworkError(err);
+		});
+});
+
+app.get("/fritzexpress/:area/tweet", (req, res) => {
 	tools
 		.validateArea(req.params.area)
 		.then((validatedArea) => {
@@ -49,8 +68,13 @@ router.get("/:area", (req, res) => {
 			sendTweet(messageText);
 		})
 		.catch((err) => {
-			console.log(err);
+			tools.handleNetworkError(err);
 		});
 });
 
-module.exports = router;
+/////////////////
+// L I S T E N //
+/////////////////
+
+const port = process.env.PORT || 3000;
+app.listen(port, () => console.log(`Listening on port ${port} ..`));
