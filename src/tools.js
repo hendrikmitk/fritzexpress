@@ -68,6 +68,12 @@ const validateArea = async (area) => {
 	}
 };
 
+const beautifyAreaName = (str) => {
+	const beautified = str.replace("ue", "ü").replace("ae", "ä").replace("oe", "ö").replace(/[0-9]/g, "");
+	const capitalized = beautified[0].toUpperCase() + beautified.slice(1);
+	return capitalized;
+};
+
 const handleNetworkError = (error) => {
 	if (error.response) {
 		console.error(error.response);
@@ -78,4 +84,4 @@ const handleNetworkError = (error) => {
 	}
 };
 
-module.exports = { areas, getOffers, validateArea, handleNetworkError };
+module.exports = { areas, getOffers, validateArea, beautifyAreaName, handleNetworkError };
