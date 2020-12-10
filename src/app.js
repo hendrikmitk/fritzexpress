@@ -1,7 +1,7 @@
-const tools = require("../src/tools");
 const express = require("express");
 const app = express();
 const Twitter = require("twitter-lite");
+const { areas, getOffers, validateArea, beautifyAreaName, handleNetworkError } = require("../src/tools");
 require("dotenv").config();
 
 /////////////
@@ -30,45 +30,49 @@ const sendTweet = async (content) => {
 /////////////////
 
 app.get("/fritzexpress/:area/offers", (req, res) => {
-	tools
-		.validateArea(req.params.area)
+	validateArea(req.params.area)
 		.then((validatedArea) => {
 			if (!validatedArea) {
-				res.status(404).send(JSON.stringify(tools.areas));
+				res.status(404).send(JSON.stringify(areas));
 			} else {
 				return validatedArea;
 			}
 		})
-		.then((validArea) => tools.getOffers(validArea))
+		.then((validArea) => getOffers(validArea))
 		.then((results) => {
 			res.status(200).send(results);
 		})
 		.catch((err) => {
-			tools.handleNetworkError(err);
+			handleNetworkError(err);
 		});
 });
 
 app.get("/fritzexpress/:area/tweet", (req, res) => {
-	tools
-		.validateArea(req.params.area)
+	validateArea(req.params.area)
 		.then((validatedArea) => {
 			if (!validatedArea) {
-				res.status(404).send(JSON.stringify(tools.areas));
+				res.status(404).send(JSON.stringify(areas));
 			} else {
 				return validatedArea;
 			}
 		})
-		.then((validArea) => tools.getOffers(validArea))
+		.then((validArea) => getOffers(validArea))
 		.then((results) => {
 			const today = new Date();
 			const date = today.getDate() + "." + (today.getMonth() + 1) + "." + today.getFullYear();
-			const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-			const messageText = `Sonderangebote bei durstexpress.de am ${date} um ${time}:\n\n${results[0].itemName}, ${results[0].offer.offerPriceDisplay} statt ${results[0].regular.regularPriceDisplay} (${results[0].discountDisplay})\n${results[1].itemName}, ${results[1].offer.offerPriceDisplay} statt ${results[1].regular.regularPriceDisplay} (${results[1].discountDisplay})\n${results[2].itemName}, ${results[2].offer.offerPriceDisplay} statt ${results[2].regular.regularPriceDisplay} (${results[2].discountDisplay})\n\nProst!`;
-			res.status(200).send(messageText);
-			sendTweet(messageText);
+			const time = today.getHours() + ":" + ("0" + today.getMinutes()).slice(-2) + " Uhr"; // ADD LEADING ZERO TO SINGLE DIGIT MINUTES
+			const text = `🤑 durstexpress.de ${beautifyAreaName(req.params.area)} am ${date}, ${time}\n\n${results[0].itemName}, ${
+				results[0].offer.offerPriceDisplay
+			} statt ${results[0].regular.regularPriceDisplay} (${results[0].discountDisplay})\n${results[1].itemName}, ${
+				results[1].offer.offerPriceDisplay
+			} statt ${results[1].regular.regularPriceDisplay} (${results[1].discountDisplay})\n${results[2].itemName}, ${
+				results[2].offer.offerPriceDisplay
+			} statt ${results[2].regular.regularPriceDisplay} (${results[2].discountDisplay})\n\nProst! 🍻`;
+			res.status(200).send(text);
+			sendTweet(text);
 		})
 		.catch((err) => {
-			tools.handleNetworkError(err);
+			handleNetworkError(err);
 		});
 });
 
