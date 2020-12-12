@@ -1,0 +1,13 @@
+# node_modules and package-lock
+node_modules
+package-lock.json
+
+# .prettierignore and .cache
+.prettierignore
+.cache
+
+# dotenv file
+.env
+
+# macOS resources
+.DS_Store
