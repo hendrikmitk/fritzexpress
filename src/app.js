@@ -68,7 +68,7 @@ app.get("/fritzexpress/:area/tweet", (req, res) => {
 			} statt ${results[1].regular.regularPriceDisplay} (${results[1].discountDisplay})\n${results[2].itemName}, ${
 				results[2].offer.offerPriceDisplay
 			} statt ${results[2].regular.regularPriceDisplay} (${results[2].discountDisplay})\n\nProst! 🍻`;
-			res.status(200).send(text);
+			res.status(200).send([{ code: 200, text: "OK", description: "Success", data: { status: text } }]);
 			sendTweet(text);
 		})
 		.catch((err) => {

@@ -51,3 +51,4 @@ I want fritzexpress to automatically check the offers every week and store them 
 ### 2020-12-15
 
 -   provide intelligible error response
+-   simplify response format

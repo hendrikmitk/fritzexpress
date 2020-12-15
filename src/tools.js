@@ -75,17 +75,18 @@ const beautifyAreaName = (str) => {
 };
 
 const createErrorObject = (param) => {
-	const areaArray = [];
+	const areasArray = [];
 	areas.forEach((area) => {
-		areaArray.push(area.name);
+		areasArray.push(area.name);
 	});
 	const errorObject = [
 		{
-			error: "Invalid route param",
-			message: "Business area does not exist",
+			code: 409,
+			text: "Conflict",
+			description: "Invalid route parameter",
 			data: {
-				areaRequested: param,
-				areasAvailable: areaArray,
+				requested: param,
+				available: areasArray,
 			},
 		},
 	];
