@@ -69,14 +69,32 @@ const validateArea = async (area) => {
 };
 
 const beautifyAreaName = (str) => {
-	const beautified = str.replace("ue", "ü").replace("ae", "ä").replace("oe", "ö").replace(/[0-9]/g, "");
+	const beautified = str.replace("ue", "ü").replace("ae", "ä").replace("oe", "ö").replace(/[0-9]/g, ""); // REPLACE UMLAUTS AND REMOVE NUMBERS
 	const capitalized = beautified[0].toUpperCase() + beautified.slice(1);
 	return capitalized;
 };
 
+const createErrorObject = (param) => {
+	const areaArray = [];
+	areas.forEach((area) => {
+		areaArray.push(area.name);
+	});
+	const errorObject = [
+		{
+			error: "Invalid route param",
+			message: "Business area does not exist",
+			data: {
+				areaRequested: param,
+				areasAvailable: areaArray,
+			},
+		},
+	];
+	return errorObject;
+};
+
 const handleNetworkError = (error) => {
 	if (error.response) {
-		console.error(error.response);
+		console.error(error.response.status);
 	} else if (error.request) {
 		console.error(error.request);
 	} else {
@@ -84,4 +102,4 @@ const handleNetworkError = (error) => {
 	}
 };
 
-module.exports = { areas, getOffers, validateArea, beautifyAreaName, handleNetworkError };
+module.exports = { getOffers, validateArea, beautifyAreaName, createErrorObject, handleNetworkError };

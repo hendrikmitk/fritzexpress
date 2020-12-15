@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const Twitter = require("twitter-lite");
-const { areas, getOffers, validateArea, beautifyAreaName, handleNetworkError } = require("../src/tools");
+const { getOffers, validateArea, beautifyAreaName, createErrorObject, handleNetworkError } = require("../src/tools");
 require("dotenv").config();
 
 /////////////
@@ -33,7 +33,7 @@ app.get("/fritzexpress/:area/offers", (req, res) => {
 	validateArea(req.params.area)
 		.then((validatedArea) => {
 			if (!validatedArea) {
-				res.status(404).send(JSON.stringify(areas));
+				res.status(404).send(createErrorObject(req.params.area));
 			} else {
 				return validatedArea;
 			}
@@ -51,7 +51,7 @@ app.get("/fritzexpress/:area/tweet", (req, res) => {
 	validateArea(req.params.area)
 		.then((validatedArea) => {
 			if (!validatedArea) {
-				res.status(404).send(JSON.stringify(areas));
+				res.status(404).send(createErrorObject(req.params.area));
 			} else {
 				return validatedArea;
 			}
