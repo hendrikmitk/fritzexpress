@@ -33,14 +33,14 @@ app.get("/fritzexpress/:area/offers", (req, res) => {
 	validateArea(req.params.area)
 		.then((validatedArea) => {
 			if (!validatedArea) {
-				res.status(404).send(createErrorObject(req.params.area));
+				res.status(409).send(createErrorObject(req.params.area));
 			} else {
 				return validatedArea;
 			}
 		})
 		.then((validArea) => getOffers(validArea))
 		.then((results) => {
-			res.status(200).send(results);
+			res.status(200).send([{ code: 200, text: "OK", description: "Success", data: { offers: results } }]);
 		})
 		.catch((err) => {
 			handleNetworkError(err);
@@ -51,7 +51,7 @@ app.get("/fritzexpress/:area/tweet", (req, res) => {
 	validateArea(req.params.area)
 		.then((validatedArea) => {
 			if (!validatedArea) {
-				res.status(404).send(createErrorObject(req.params.area));
+				res.status(409).send(createErrorObject(req.params.area));
 			} else {
 				return validatedArea;
 			}
