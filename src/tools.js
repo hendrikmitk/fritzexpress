@@ -63,10 +63,6 @@ const getOffers = async area => {
 	}
 };
 
-const isItemOnSale = async (saleItems, itemToLookFor) => {
-	return saleItems.some(item => item.itemName.includes(itemToLookFor));
-};
-
 const validateArea = async area => {
 	if (areas.some(i => i.name.includes(area))) {
 		return area;
@@ -108,4 +104,4 @@ const handleNetworkError = error => {
 	}
 };
 
-module.exports = { getOffers, isItemOnSale, validateArea, beautifyAreaName, createErrorObject, handleNetworkError };
+module.exports = { getOffers, validateArea, beautifyAreaName, createErrorObject, handleNetworkError };

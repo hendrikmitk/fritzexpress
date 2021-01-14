@@ -19,7 +19,7 @@ I want fritzexpress to automatically check the offers every week and store them 
 -   [x] create request params for all business area cities
 -   [x] validate requested business area city
 -   [x] provide intelligible error response
--   [ ] add custom `fritzKolaOnSale` property (boolean)
+-   [x] add custom `fritzKolaOnSale` property (boolean)
 -   [ ] solve JavaScript challenge and bypass DDoS protection
 
 ## Inspirations
@@ -52,3 +52,7 @@ I want fritzexpress to automatically check the offers every week and store them 
 
 -   provide intelligible error response
 -   simplify response format
+
+### 2021-01-14
+
+-   add custom `fritzKolaOnSale` property (boolean)

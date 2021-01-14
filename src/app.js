@@ -2,7 +2,7 @@ const { json } = require('express');
 const express = require('express');
 const app = express();
 const Twitter = require('twitter-lite');
-const { getOffers, isItemOnSale, validateArea, beautifyAreaName, createErrorObject, handleNetworkError } = require('../src/tools');
+const { getOffers, validateArea, beautifyAreaName, createErrorObject, handleNetworkError } = require('../src/tools');
 require('dotenv').config();
 
 /////////////
@@ -41,7 +41,13 @@ app.get('/fritzexpress/:area/offers', (req, res) => {
 		})
 		.then(validArea => getOffers(validArea))
 		.then(results => {
-			res.status(200).send([{ code: 200, text: 'OK', description: 'Success', data: { offers: results } }]);
+			let fritzOnSale;
+			if (results.some(item => item.itemName.toLowerCase().includes('fritz'))) {
+				fritzOnSale = true;
+			} else {
+				fritzOnSale = false;
+			}
+			res.status(200).send([{ code: 200, text: 'OK', description: 'Success', data: { offers: results, fritzKolaOnSale: fritzOnSale } }]);
 		})
 		.catch(err => {
 			handleNetworkError(err);
