@@ -8,7 +8,11 @@
     "dev": "nodemon src/app.js"
   },
   "keywords": [],
-  "author": "",
+  "author": {
+    "name": "Hendrik Harlichs",
+    "email": "hi@hendrikharlichs.de"
+  },
+  "repository": "github:hendrikmitk/fritzexpress",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.21.0",
