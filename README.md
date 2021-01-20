@@ -6,7 +6,7 @@ A service checking special offers on [durstexpress.de](https://www.durstexpress.
 
 fritzexpress is a Node.js app that parse and exposes the special offers on durstexpress.de, a German online beverage delivery service using web scraping.
 
-fritzexpress is one of my first Node.js projects. Besides providing a REST API with Express, I wanted to use this project to learn how to work with web scraping. Unfortunately it does not work on Production as it turned out that durstexpress.de uses a DDoS protection which I did not manage to bypass yet.
+fritzexpress is my first reallife Node.js project. Besides providing a REST API with Express, I wanted to use this project to learn how to work with web scraping. Unfortunately it does not work on Production as it turned out that durstexpress.de uses a DDoS protection which I did not manage to bypass yet.
 
 ## Roadmap
 
