@@ -18,7 +18,7 @@ const areas = [
 	{ name: 'dresden' },
 	{ name: 'nuernberg' },
 	{ name: 'augsburg' },
-	{ name: 'muenchen' },
+	{ name: 'muenchen' }
 ];
 
 /////////////
@@ -33,26 +33,74 @@ const getOffers = async area => {
 
 		const offerItemsMap = $('div.products-list-sale div.product-item-details') // PARSE NAMES AND PRICES OF ITEMS
 			.map(async (i, elem) => {
-				let itemName = $(elem).children().first().children().text().replace('\n', '').replace(' l ', ' l');
-				let offerPrice = parseFloat($(elem).children().first().next().children().first().find($('.price-wrapper')).attr('data-price-amount'));
-				let offerPriceDisplay = $(elem).children().first().next().children().first().children().children().next().text();
-				let regularPrice = parseFloat($(elem).children().first().next().children().last().find($('.price-wrapper')).attr('data-price-amount'));
-				let regularPriceDisplay = $(elem).children().first().next().children().last().children().children().next().text();
-				let discount = parseInt($(elem).parent().before().find($('.prozent-ersparnis')).text().replace(' %', ''));
-				let discountDisplay = $(elem).parent().before().find($('.prozent-ersparnis')).text();
+				let itemName = $(elem)
+					.children()
+					.first()
+					.children()
+					.text()
+					.replace('\n', '')
+					.replace(' l ', ' l');
+				let offerPrice = parseFloat(
+					$(elem)
+						.children()
+						.first()
+						.next()
+						.children()
+						.first()
+						.find($('.price-wrapper'))
+						.attr('data-price-amount')
+				);
+				let offerPriceDisplay = $(elem)
+					.children()
+					.first()
+					.next()
+					.children()
+					.first()
+					.children()
+					.children()
+					.next()
+					.text();
+				let regularPrice = parseFloat(
+					$(elem)
+						.children()
+						.first()
+						.next()
+						.children()
+						.last()
+						.find($('.price-wrapper'))
+						.attr('data-price-amount')
+				);
+				let regularPriceDisplay = $(elem)
+					.children()
+					.first()
+					.next()
+					.children()
+					.last()
+					.children()
+					.children()
+					.next()
+					.text();
+				let discount = parseInt(
+					$(elem).parent().before().find($('.prozent-ersparnis')).text().replace(' %', '')
+				);
+				let discountDisplay = $(elem)
+					.parent()
+					.before()
+					.find($('.prozent-ersparnis'))
+					.text();
 
 				return {
 					itemName,
 					offer: {
 						offerPrice,
-						offerPriceDisplay,
+						offerPriceDisplay
 					},
 					regular: {
 						regularPrice,
-						regularPriceDisplay,
+						regularPriceDisplay
 					},
 					discount,
-					discountDisplay,
+					discountDisplay
 				};
 			})
 			.get();
@@ -70,7 +118,11 @@ const validateArea = async area => {
 };
 
 const beautifyAreaName = str => {
-	const beautified = str.replace('ue', 'ü').replace('ae', 'ä').replace('oe', 'ö').replace(/[0-9]/g, ''); // REPLACE UMLAUTS AND REMOVE NUMBERS
+	const beautified = str
+		.replace('ue', 'ü')
+		.replace('ae', 'ä')
+		.replace('oe', 'ö')
+		.replace(/[0-9]/g, ''); // REPLACE UMLAUTS AND REMOVE NUMBERS
 	const capitalized = beautified[0].toUpperCase() + beautified.slice(1);
 	return capitalized;
 };
@@ -87,9 +139,9 @@ const createErrorObject = param => {
 			description: 'Invalid route parameter',
 			data: {
 				requested: param,
-				available: areasArray,
-			},
-		},
+				available: areasArray
+			}
+		}
 	];
 	return errorObject;
 };
@@ -104,4 +156,10 @@ const handleNetworkError = error => {
 	}
 };
 
-module.exports = { getOffers, validateArea, beautifyAreaName, createErrorObject, handleNetworkError };
+module.exports = {
+	getOffers,
+	validateArea,
+	beautifyAreaName,
+	createErrorObject,
+	handleNetworkError
+};
